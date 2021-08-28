@@ -1,4 +1,4 @@
-#include <adc.h>
+#include <include/adc.h>
 
 
 /**
@@ -7,6 +7,7 @@
 int main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
+	ADC_Init();
 	
 	return 0;
 }

@@ -5,7 +5,7 @@
  *      Author: vishakha
  */
 
-#include <adc.h>
+#include <include/adc.h>
 
 void ADC_Init(void)
 {
