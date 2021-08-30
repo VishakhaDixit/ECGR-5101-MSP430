@@ -3,10 +3,10 @@
  */
 
 #include <include/gpio.h>
+#include <stdbool.h>
 
 int main(void)
 {
-    unsigned int Led, Switch;
     bool switch_status;
 
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
@@ -19,6 +19,4 @@ int main(void)
 	    switch_status = gpio_get(PORT_1, PIN_3);
 	    gpio_set(PORT_2, PIN_1, switch_status);
 	}
-
-	return 0;
 }

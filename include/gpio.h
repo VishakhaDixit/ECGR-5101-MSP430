@@ -9,6 +9,7 @@
 #define MSP_430_INCLUDE_GPIO_H_
 
 #include <msp430.h>
+#include <stdbool.h>
 
 typedef enum port
 {

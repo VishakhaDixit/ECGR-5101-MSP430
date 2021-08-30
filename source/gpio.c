@@ -5,11 +5,11 @@
  *      Author: vishakha
  */
 
-#include <include/gpio.h>
+#include "include/gpio.h"
 
 void gpio_init(port_e port_num, pin_num_e pin_num, dir_e direction)
 {
-    if (port_num = PORT_1)
+    if (port_num == PORT_1)
     {
         //set direction
         //enable
@@ -50,7 +50,7 @@ bool gpio_get(port_e port_num, pin_num_e pin_num)
 
     pin_val = 1 << pin_num;
 
-    if (port_num = PORT_1)
+    if (port_num == PORT_1)
     {
         val = P1IN & pin_val;
     }
@@ -69,7 +69,7 @@ void gpio_set(port_e port_num, pin_num_e pin_num, bool val)
 
     if(val == 0)
     {
-        if (port_num = PORT_1)
+        if (port_num == PORT_1)
         {
             P1OUT ^= pin_val;
         }
