@@ -8,8 +8,6 @@
 #ifndef MSP_430_INCLUDE_GPIO_H_
 #define MSP_430_INCLUDE_GPIO_H_
 
-#include <msp430.h>
-#include <stdbool.h>
 #include <include/common.h>
 
 typedef enum direction

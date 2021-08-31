@@ -5,9 +5,12 @@
  *      Author: visha
  */
 
-#ifndef POT_7SEGDISPLAY_INCLUDE_COMMON_H_
-#define POT_7SEGDISPLAY_INCLUDE_COMMON_H_
+#ifndef COMMON_H_INCLUDE
+#define COMMON_H_INCLUDE
 
+#include <msp430.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 typedef enum port
 {
@@ -20,4 +23,4 @@ typedef enum pin_num
     PIN_0, PIN_1, PIN_2, PIN_3, PIN_4, PIN_5, PIN_6, PIN_7
 } pin_num_e;
 
-#endif /* POT_7SEGDISPLAY_INCLUDE_COMMON_H_ */
+#endif /* COMMON_H_INCLUDE */

@@ -8,17 +8,7 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-#include <msp430.h>
 #include <include/common.h>
-
-typedef struct adc_config_args
-{
-    input_ch_e adc_ch;
-    sh_time_e sample_hold_time;
-    shs_e sample_hold_src;
-    clk_src_e clk_src;
-    conv_seq_mode_e conv_seq_mode;
-} adc_config_args_t;
 
 typedef enum select_input_ch
 {
@@ -63,6 +53,15 @@ typedef enum select_conv_seq_mode
     REPEAT_SINGLE_CH = CONSEQ_2,
     REPEAT_SEQ_OF_CH = CONSEQ_3
 } conv_seq_mode_e;
+
+typedef struct adc_config_args
+{
+    input_ch_e adc_ch;
+    sh_time_e sample_hold_time;
+    shs_e sample_hold_src;
+    clk_src_e clk_src;
+    conv_seq_mode_e conv_seq_mode;
+} adc_config_args_t;
 
 void ADC_Init(adc_config_args_t *adc_config_params, pin_num_e pin_num);
 
