@@ -8,23 +8,23 @@
 #include "include/gpio.h"
 #include <stdint.h>
 
-void gpio_init(port_e port_num, pin_num_e pin_num, dir_e direction)
+void gpioInit(port_e portNum, pin_num_e pinNum, dir_e direction)
 {
-    if (port_num == PORT_1)
+    if (portNum == PORT_1)
     {
         //set direction
         //enable
         if( direction == INPUT )
         {
-            P1DIR &= ~(1 << pin_num);
-            P1REN |= 1 << pin_num;
+            P1DIR &= ~(1 << pinNum);
+            P1REN |= 1 << pinNum;
         }
         else
         {
-            P1DIR |= 1 << pin_num;
+            P1DIR |= 1 << pinNum;
         }
 
-        P1OUT |= 1 << pin_num;
+        P1OUT |= 1 << pinNum;
     }
     else
     {
@@ -32,62 +32,62 @@ void gpio_init(port_e port_num, pin_num_e pin_num, dir_e direction)
         //enable
         if( direction == INPUT )
         {
-            P2DIR &= ~(1 << pin_num);
-            P2REN |= 1 << pin_num;
+            P2DIR &= ~(1 << pinNum);
+            P2REN |= 1 << pinNum;
         }
         else
         {
-            P2DIR |= 1 << pin_num;
+            P2DIR |= 1 << pinNum;
         }
 
-        P2OUT |= 1 << pin_num;
+        P2OUT |= 1 << pinNum;
     }
 }
 
-bool gpio_get(port_e port_num, pin_num_e pin_num)
+bool gpioGet(port_e portNum, pin_num_e pinNum)
 {
     bool val;
-    uint8_t pin_mask;
+    uint8_t pinMask;
 
-    pin_mask = 1 << pin_num;
+    pinMask = 1 << pinNum;
 
-    if (port_num == PORT_1)
+    if (portNum == PORT_1)
     {
-        val = P1IN & pin_mask;
+        val = (bool) (P1IN & pinMask);
     }
     else
     {
-        val = P2IN & pin_mask;
+        val = (bool) (P2IN & pinMask);
     }
 
     return val;
 }
 
-void gpio_set(port_e port_num, pin_num_e pin_num, bool val)
+void gpioSet(port_e portNum, pin_num_e pinNum, bool val)
 {
-    uint8_t pin_mask;
-    pin_mask = 1 << pin_num;
+    uint8_t pinMask;
+    pinMask = 1 << pinNum;
 
     if(val == 1)
     {
-        if (port_num == PORT_1)
+        if (portNum == PORT_1)
         {
-            P1OUT |= pin_mask;
+            P1OUT |= pinMask;
         }
         else
         {
-            P2OUT |= pin_mask;
+            P2OUT |= pinMask;
         }
     }
     else
     {
-        if (port_num == PORT_1)
+        if (portNum == PORT_1)
         {
-            P1OUT &= ~(pin_mask);
+            P1OUT &= ~(pinMask);
         }
         else
         {
-            P2OUT &= ~(pin_mask);
+            P2OUT &= ~(pinMask);
         }
     }
 }

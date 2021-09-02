@@ -16,11 +16,11 @@ typedef enum direction
     OUTPUT = 1
 } dir_e;
 
-void gpio_init(port_e port_num, pin_num_e pin_num, dir_e direction);
+void gpioInit(port_e portNum, pin_num_e pinNum, dir_e direction);
 
-bool gpio_get(port_e port_num, pin_num_e pin_num);
+bool gpioGet(port_e portNum, pin_num_e pinNum);
 
-void gpio_set(port_e port_num, pin_num_e pin_num, bool val);
+void gpioSet(port_e portNum, pin_num_e pinNum, bool val);
 
 
 #endif /* MSP_430_INCLUDE_GPIO_H_ */

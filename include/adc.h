@@ -10,7 +10,7 @@
 
 #include <include/common.h>
 
-typedef enum select_input_ch
+typedef enum selectInputCh
 {
     CH_0 = INCH_0,
     CH_1 = INCH_1,
@@ -22,7 +22,7 @@ typedef enum select_input_ch
     CH_7 = INCH_7
 } input_ch_e;
 
-typedef enum sample_hold_time
+typedef enum sampleHoldTime
 {
     FOUR_ADC_CLK = ADC10SHT_0,
     EIGHT_ADC_CLK = ADC10SHT_1,
@@ -30,7 +30,7 @@ typedef enum sample_hold_time
     SIXTY_FOUR_ADC_CLK = ADC10SHT_3
 } sh_time_e;
 
-typedef enum sample_hold_source
+typedef enum sampleHoldSource
 {
     ADC_OSC = SHS_0,
     TIMER_OUT1 = SHS_1,
@@ -38,7 +38,7 @@ typedef enum sample_hold_source
     TIMER_OUT2 = SHS_3
 } shs_e;
 
-typedef enum select_clk_source
+typedef enum selectClkSource
 {
     INTERNAL_OSC = ADC10SSEL_0,
     CRYSTAL_CLK = ADC10SSEL_1,               //Low freq clk for peripherals
@@ -46,7 +46,7 @@ typedef enum select_clk_source
     SUB_MAIN_SYS_CLK = ADC10SSEL_3           //High freq clk for peripherals
 } clk_src_e;
 
-typedef enum select_conv_seq_mode
+typedef enum selectConvSeqMode
 {
     SINGLE_CH_SINGLE_CONV = CONSEQ_0,
     SEQ_OF_CH = CONSEQ_1,
@@ -54,7 +54,7 @@ typedef enum select_conv_seq_mode
     REPEAT_SEQ_OF_CH = CONSEQ_3
 } conv_seq_mode_e;
 
-typedef struct adc_config_args
+typedef struct adcConfigArgs
 {
     input_ch_e adc_ch;
     sh_time_e sample_hold_time;
