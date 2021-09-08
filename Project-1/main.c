@@ -1,57 +1,40 @@
-/**
- * main.c
- */
+/**************************
+ *
+ * @file    main.c
+ *
+ * @brief   This program tends to implement blinking of led using timer, and stops the timer using switch
+ *
+ * @date    Aug 29, 2021
+ *
+ * @author  Vishakha Dixit, Anuradha
+ *
+ **************************/
 
 #include <include/gpio.h>
 #include <include/timer.h>
 
 int main(void)
 {
-
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
+    bool switchStatus;
 
-	timerInit(PORT_1, PIN_6, 50, 1);
+	timerInit(PORT_1, PIN_6, 50, 1);   //Using P1.6 for LED
 	gpioInit(PORT_2, PIN_3, INPUT);    //Using P2.3 for switch
 
 	while(1)
 	{
-	    bool switchStatus;
-
 	    switchStatus = gpioGet(PORT_2, PIN_3);
 
 	    if( switchStatus == 1)
 	    {
+	        //Blink led when switch is not pressed
 	        timerStart();
 	    }
 	    else
 	    {
+	        //Pause the blinking when switch is pressed
 	        timerStop();
 	    }
 	}
-
-
-
-
-//	gpioInit(PORT_1, PIN_5, OUTPUT);   //Using P1.6 for led
-//
-//    while(1)
-//    {
-//        unsigned long i;
-//        gpioSet(PORT_1, PIN_5, true);
-//
-//        i = 50000;
-//        do
-//        {
-//            i--;
-//        } while( i != 0);
-//
-//        gpioSet(PORT_1, PIN_5, false);
-//
-//        i = 50000;
-//        do
-//        {
-//            i--;
-//        } while( i != 0);
-//    }
 	
 }

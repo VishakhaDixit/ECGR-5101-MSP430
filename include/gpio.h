@@ -1,9 +1,14 @@
-/*
- * gpio.h
+/**************************
  *
- *  Created on: Aug 29, 2021
- *      Author: vishakha
- */
+ * @file    gpio.h
+ *
+ * @brief   This file contains functions for initializing msp430 gpio.
+ *
+ * @date    Aug 29, 2021
+ *
+ * @author  Vishakha Dixit, Anuradha
+ *
+ **************************/
 
 #ifndef MSP_430_INCLUDE_GPIO_H_
 #define MSP_430_INCLUDE_GPIO_H_
