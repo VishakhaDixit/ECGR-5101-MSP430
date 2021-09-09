@@ -27,5 +27,7 @@ bool gpioGet(port_e portNum, pin_num_e pinNum);
 
 void gpioSet(port_e portNum, pin_num_e pinNum, bool val);
 
+void gpioSetPort(port_e portNum, uint8_t portVal);
+
 
 #endif /* MSP_430_INCLUDE_GPIO_H_ */

@@ -1,9 +1,14 @@
-/*
- * adc.h
+/**************************
  *
- *  Created on: Aug 27, 2021
- *      Author: vishakha
- */
+ * @file    adc.h
+ *
+ * @brief   This file contains functions to initialize ADC and read its digital value.
+ *
+ * @date    Aug 27, 2021
+ *
+ * @author  Vishakha Dixit
+ *
+ **************************/
 
 #ifndef ADC_H_
 #define ADC_H_
