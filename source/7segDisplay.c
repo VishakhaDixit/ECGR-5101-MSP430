@@ -28,9 +28,9 @@ int8_t findBitPos(uint8_t num)
 }
 
 /**************************
- * @brief       This function initializes the gpio pin based on the direction provided.
+ * @brief       This function initializes the 7 segment display pins.
  *
- * @param [in]  portNum, direction
+ * @param [in]  portNum, *setPin
  *
  * @return      NULL
  **************************/
@@ -62,7 +62,7 @@ void sevenSegDisplay_Init(port_e portNum, sevenSegPin_Config_t *setPin)
 /**************************
  * @brief       This function displays the given value in 7 segment display.
  *
- * @param [in]  val
+ * @param [in]  portNum, *setPin, val
  *
  * @return      NULL
  **************************/
