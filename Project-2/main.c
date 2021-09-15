@@ -16,7 +16,7 @@
 
 int main(void)
 {
-    int result;
+    uint8_t result;
 
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 

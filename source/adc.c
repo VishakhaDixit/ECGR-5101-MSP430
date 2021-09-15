@@ -39,10 +39,10 @@ void ADC_Init(adc_config_args_t *adc_config_params, pin_num_e pin_num)
  *
  * @return      int Sampled data
  **************************/
-int ADC_Read(void)
+uint8_t ADC_Read(void)
 {
     uint16_t digital_val;
-    int result;
+    uint8_t result;
 
     ADC10CTL0 |= ADC10SC;  //Start conversion
 
@@ -51,7 +51,7 @@ int ADC_Read(void)
     digital_val = (ADC10MEM & 0x03FF);  //Reading the 10-bit digital value
 
     // Sampling 1024 different values between 0-F
-    if( (digital_val >= 0) && (digital_val <= 63) )
+    if( (digital_val > 0) && (digital_val <= 63) )
         result = 0;
     else if( (digital_val >= 64) && (digital_val <= 127) )
         result = 1;

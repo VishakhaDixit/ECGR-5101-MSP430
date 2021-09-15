@@ -29,6 +29,6 @@ typedef struct sevenSegPin
 
 void sevenSegDisplay_Init(port_e portNum, sevenSegPin_Config_t *setPin);
 
-void sevenSegDisplay_Set(port_e portNum, sevenSegPin_Config_t *setPin, int val);
+void sevenSegDisplay_Set(port_e portNum, sevenSegPin_Config_t *setPin, uint8_t val);
 
 #endif /* INCLUDE_7SEGDISPLAY_H_ */

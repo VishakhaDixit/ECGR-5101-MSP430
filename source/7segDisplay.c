@@ -74,7 +74,7 @@ void sevenSegDisplay_Init(port_e portNum, sevenSegPin_Config_t *setPin)
  *
  * @return      NULL
  **************************/
-void sevenSegDisplay_Set(port_e portNum, sevenSegPin_Config_t *setPin, int val)
+void sevenSegDisplay_Set(port_e portNum, sevenSegPin_Config_t *setPin, uint8_t val)
 {
     uint8_t portVal;
 
