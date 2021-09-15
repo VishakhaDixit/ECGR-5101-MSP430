@@ -6,14 +6,22 @@
  *
  * @date    Sept 08, 2021
  *
- * @author  Vishakha Dixit
+ * @author  Vishakha Dixit, Anuradha
  *
  **************************/
 
 #include <include/7segDisplay.h>
 #include <math.h>
 
-int8_t findBitPos(uint8_t num)
+
+/**************************
+ * @brief       Utility function to find bit position for the given number.
+ *
+ * @param [in]  num
+ *
+ * @return      int8_t Bit position
+ **************************/
+static int8_t findBitPos(uint8_t num)
 {
     int8_t retVal;
     if (num == 0)

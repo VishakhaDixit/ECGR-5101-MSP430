@@ -6,7 +6,7 @@
  *
  * @date    Aug 27, 2021
  *
- * @author  Vishakha Dixit
+ * @author  Vishakha Dixit, Anuradha
  *
  **************************/
 
@@ -70,6 +70,6 @@ typedef struct adcConfigArgs
 
 void ADC_Init(adc_config_args_t *adc_config_params, pin_num_e pin_num);
 
-uint16_t ADC_Read(void);
+int ADC_Read(void);
 
 #endif /* ADC_H_ */
