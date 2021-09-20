@@ -10,6 +10,7 @@
 
 
 #include "include/pin_common.h"
+#include <include/common.h>
 
 /*
  * Function: pinSetOP
