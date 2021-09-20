@@ -13,7 +13,7 @@
 #ifndef INCLUDE_7SEGDISPLAY_H_
 #define INCLUDE_7SEGDISPLAY_H_
 
-#include <include/common.h>
+#include <include/pin_common.h>
 #include <include/gpio.h>
 
 typedef struct sevenSegPin

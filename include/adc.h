@@ -68,8 +68,8 @@ typedef struct adcConfigArgs
     conv_seq_mode_e conv_seq_mode;
 } adc_config_args_t;
 
-void ADC_Init(adc_config_args_t *adc_config_params, pin_num_e pin_num);
+void ADC_Init(adc_config_args_t *adc_config_params, uint8_t pin_num);
 
-uint8_t ADC_Read(void);
+int ADC_Read(void);
 
 #endif /* ADC_H_ */
