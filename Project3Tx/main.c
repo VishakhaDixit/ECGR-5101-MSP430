@@ -2,7 +2,8 @@
  *
  * @file    main.c
  *
- * @brief   This program tends to implement blinking of led using timer, and stops the timer using switch
+ * @brief   This program tends to modify led brightness wrt potentiometer. Pwm modifies the led brightness by using ADC to sample
+ *          duty cycle wrt pot vol and transmits the same using UART.
  *
  * @date    Sep 15, 2021
  *
