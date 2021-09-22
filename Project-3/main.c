@@ -32,14 +32,14 @@ int main(void)
         //Set config parameters for ADC
         adc_config_args_t config_params;
 
-        config_params.adc_ch            = CH_3;                             // Set ADC channel
+        config_params.adc_ch            = CH_4;                             // Set ADC channel
         config_params.clk_src           = INTERNAL_OSC;                     // Set clk source for ADC
         config_params.conv_seq_mode     = SINGLE_CH_SINGLE_CONV;            // Set conversion seq mode
         config_params.sample_hold_src   = ADC_OSC;                          // Set sample and hold source
         config_params.sample_hold_time  = SIXTEEN_ADC_CLK;                  // Set sample and hold time
 
         // Initialize ADC
-        ADC_Init(&config_params, GPIO_PIN3);
+        ADC_Init(&config_params, GPIO_PIN4);
 
         while(1)
         {
@@ -47,8 +47,9 @@ int main(void)
             dutyCycle = ADC_Read();
 
             //Set duty cycle and port, pin configuration for pwm
+            //Led at Port2 Pin0
             pwmSetDuty(dutyCycle);
-            pinSetPWM(GPIO_BASE_PORT1, GPIO_PIN6);
+            pinSetPWM(GPIO_BASE_PORT2, GPIO_PIN0);
 
             //Transmit the value of duty cycle using UART.
             uartTransmitChar((uint8_t) dutyCycle);
@@ -64,8 +65,9 @@ int main(void)
             dutyCycle = uartReceiveChar();
 
             //Set duty cycle and port, pin configuration for pwm
+            //Led at Port2 Pin0
             pwmSetDuty(dutyCycle);
-            pinSetPWM(GPIO_BASE_PORT1, GPIO_PIN6);
+            pinSetPWM(GPIO_BASE_PORT2, GPIO_PIN0);
         }
     }
 }
