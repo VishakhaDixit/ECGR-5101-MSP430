@@ -14,34 +14,6 @@
 
 
 /**************************
- * @brief       This function samples the digital value of ADC.
- *
- * @param [in]  uint16_t
- *
- * @return      int Sampled data
- **************************/
-static int sampleData(uint16_t digital_val)
-{
-    int result;
-
-    // Sampling 1024 different values for setting duty cycles
-    if( (digital_val > 0) && (digital_val <= 255) )
-        result = 25;    //25% duty cycle
-
-    else if( (digital_val >= 256) && (digital_val <= 511) )
-        result = 50;    //50% duty cycle
-
-    else if( (digital_val >= 512) && (digital_val <= 767) )
-        result = 75;    //75% duty cycle
-
-    else
-        result = 100;   //100% duty cycle
-
-    return result;
-}
-
-
-/**************************
  * @brief       This function initializes the provided ADC channel.
  *
  * @param [in]  *adc_config_params, pin_num
@@ -67,10 +39,9 @@ void ADC_Init(adc_config_args_t *adc_config_params, uint8_t pin_num)
  *
  * @return      int Sampled data
  **************************/
-int ADC_Read(void)
+uint16_t ADC_Read(void)
 {
-    uint16_t digital_val;
-    uint8_t result;
+    uint16_t digital_val = 0;
 
     ADC10CTL0 |= ADC10SC;  //Start conversion
 
@@ -78,6 +49,5 @@ int ADC_Read(void)
 
     digital_val = (ADC10MEM & 0x03FF);  //Reading the 10-bit digital value
 
-    result = sampleData(digital_val);
-    return result;
+    return digital_val;
 }

@@ -19,7 +19,8 @@
 
 int main(void)
 {
-    int dutyCycle;
+    uint16_t dig_val;
+    float dutyCycle;
 
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
@@ -45,10 +46,12 @@ int main(void)
             ADC_Init(&config_params, GPIO_PIN4);
 
             //Read digital value of potentiometer voltage and configure duty cycle.
-            dutyCycle = ADC_Read();
+            dig_val = ADC_Read();
+
+            dutyCycle = (dig_val/1024) * 1000;
 
             //Set duty cycle
-            pwmSetDuty(dutyCycle);
+            pwmSetDuty((int)dutyCycle);
 
             //Transmit the value of duty cycle using UART.
             uartTransmitChar((uint8_t) dutyCycle);

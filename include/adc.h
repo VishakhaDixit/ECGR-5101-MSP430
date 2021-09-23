@@ -70,6 +70,6 @@ typedef struct adcConfigArgs
 
 void ADC_Init(adc_config_args_t *adc_config_params, uint8_t pin_num);
 
-int ADC_Read(void);
+uint16_t ADC_Read(void);
 
 #endif /* ADC_H_ */
