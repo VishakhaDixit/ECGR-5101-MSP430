@@ -26,48 +26,40 @@ int main(void)
     //Initialize UART
     uartInit();
 
-    //If Pin 3 on Port 1 is running low, configure the system as sender.
-    if(!(P1IN & BIT3))
+    pinSetPWM(GPIO_PORT_P2, GPIO_PIN1);     //LED at Port2 Pin1
+
+    //Set config parameters for ADC
+    adc_config_args_t config_params;
+
+    config_params.adc_ch            = CH_4;                             // Set ADC channel
+    config_params.clk_src           = INTERNAL_OSC;                     // Set clk source for ADC
+    config_params.conv_seq_mode     = SINGLE_CH_SINGLE_CONV;            // Set conversion seq mode
+    config_params.sample_hold_src   = ADC_OSC;                          // Set sample and hold source
+    config_params.sample_hold_time  = SIXTEEN_ADC_CLK;                  // Set sample and hold time
+
+    while(1)
     {
-        //Set config parameters for ADC
-        adc_config_args_t config_params;
-
-        config_params.adc_ch            = CH_4;                             // Set ADC channel
-        config_params.clk_src           = INTERNAL_OSC;                     // Set clk source for ADC
-        config_params.conv_seq_mode     = SINGLE_CH_SINGLE_CONV;            // Set conversion seq mode
-        config_params.sample_hold_src   = ADC_OSC;                          // Set sample and hold source
-        config_params.sample_hold_time  = SIXTEEN_ADC_CLK;                  // Set sample and hold time
-
-        // Initialize ADC
-        ADC_Init(&config_params, GPIO_PIN4);
-
-        while(1)
+        if(!(P1IN & BIT3))
         {
+            // Initialize ADC
+            ADC_Init(&config_params, GPIO_PIN4);
+
             //Read digital value of potentiometer voltage and configure duty cycle.
             dutyCycle = ADC_Read();
 
-            //Set duty cycle and port, pin configuration for pwm
-            //Led at Port2 Pin0
+            //Set duty cycle
             pwmSetDuty(dutyCycle);
-            pinSetPWM(GPIO_BASE_PORT2, GPIO_PIN0);
 
             //Transmit the value of duty cycle using UART.
             uartTransmitChar((uint8_t) dutyCycle);
         }
-    }
-
-    //If Pin 3 on Port 1 is running high, configure the system as receiver.
-    else
-    {
-        while(1)
+        else
         {
             //Read received duty cycle from UART.
             dutyCycle = uartReceiveChar();
 
-            //Set duty cycle and port, pin configuration for pwm
-            //Led at Port2 Pin0
+            //Set duty cycle
             pwmSetDuty(dutyCycle);
-            pinSetPWM(GPIO_BASE_PORT2, GPIO_PIN0);
         }
     }
 }
