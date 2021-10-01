@@ -144,3 +144,22 @@ void gpioSetPort(port_e portNum, uint8_t portVal)
         P2OUT = portVal;
     }
 }
+
+void enableGpioInterrput(port_e portNum, pin_num_e pinNum)
+{
+    uint8_t pinMask;
+    pinMask = 1 << pinNum;
+
+    if (portNum == PORT_1)
+    {
+        P1IE |= pinMask;                       //interrupt enabled
+        P1IES |= pinMask;                      //Hi/lo edge
+        P1IFG &= ~pinMask;                     //IFG cleared
+    }
+    else
+    {
+        P2IE |= pinMask;                       //interrupt enabled
+        P2IES |= pinMask;                      //Hi/lo edge
+        P2IFG &= ~pinMask;                     //IFG cleared
+    }
+}
