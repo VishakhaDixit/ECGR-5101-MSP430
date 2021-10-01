@@ -3,7 +3,7 @@
  * @file    main.c
  *
  * @brief   This program tends to modify led brightness using potentiometer.
- *          Potentiometer turns on one board will affect the brightness of a light on the other board.
+ *          Potentiometer turns on one board will affect the brightness of LED on the other board.
  *
  * @date    Sep 21, 2021
  *
@@ -20,7 +20,7 @@
 int main(void)
 {
     uint16_t dig_val;
-    float dutyCycle;
+    uint8_t dutyCycle;
 
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
@@ -40,6 +40,7 @@ int main(void)
 
     while(1)
     {
+        //If Pin3 is low then the board behaves as a sender for UART communication.
         if(!(P1IN & BIT3))
         {
             // Initialize ADC
@@ -48,7 +49,9 @@ int main(void)
             //Read digital value of potentiometer voltage and configure duty cycle.
             dig_val = ADC_Read();
 
-            dutyCycle = (dig_val/1024) * 1000;
+            //Calculating duty cycle for RMS voltage [Vrms = Vadc for same power]
+            //dutyCycle = (Vadc/Vcc)^2 * 100
+            dutyCycle = (dig_val/1024.0) * (dig_val/1024.0) * 100;
 
             //Set duty cycle
             pwmSetDuty((int)dutyCycle);
@@ -56,13 +59,14 @@ int main(void)
             //Transmit the value of duty cycle using UART.
             uartTransmitChar((uint8_t) dutyCycle);
         }
+        //If Pin3 is high then the board acts as a receiver for UART communication.
         else
         {
             //Read received duty cycle from UART.
             dutyCycle = uartReceiveChar();
 
             //Set duty cycle
-            pwmSetDuty(dutyCycle);
+            pwmSetDuty((int)dutyCycle);
         }
     }
 }

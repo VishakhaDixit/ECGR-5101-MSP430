@@ -37,7 +37,7 @@ void ADC_Init(adc_config_args_t *adc_config_params, uint8_t pin_num)
  *
  * @param [in]  NULL
  *
- * @return      int Sampled data
+ * @return      uint16_t Digital value
  **************************/
 uint16_t ADC_Read(void)
 {
