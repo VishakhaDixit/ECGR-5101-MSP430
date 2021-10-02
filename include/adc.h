@@ -1,9 +1,14 @@
-/*
- * adc.h
+/**************************
  *
- *  Created on: Aug 27, 2021
- *      Author: vishakha
- */
+ * @file    adc.h
+ *
+ * @brief   This file contains functions to initialize ADC and read its digital value.
+ *
+ * @date    Aug 27, 2021
+ *
+ * @author  Vishakha Dixit, Anuradha
+ *
+ **************************/
 
 #ifndef ADC_H_
 #define ADC_H_
@@ -63,7 +68,7 @@ typedef struct adcConfigArgs
     conv_seq_mode_e conv_seq_mode;
 } adc_config_args_t;
 
-void ADC_Init(adc_config_args_t *adc_config_params, pin_num_e pin_num);
+void ADC_Init(adc_config_args_t *adc_config_params, uint8_t pin_num);
 
 uint16_t ADC_Read(void);
 

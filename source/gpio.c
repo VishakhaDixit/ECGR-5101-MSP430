@@ -124,3 +124,42 @@ void gpioSet(port_e portNum, pin_num_e pinNum, bool val)
         }
     }
 }
+
+
+/**************************
+ * @brief       This function sets the gpio port pins as either high or low based on port num and value provided.
+ *
+ * @param [in]  portNum, portVal
+ *
+ * @return      NULL
+ **************************/
+void gpioSetPort(port_e portNum, uint8_t portVal)
+{
+    if (portNum == PORT_1)
+    {
+        P1OUT = portVal;
+    }
+    else
+    {
+        P2OUT = portVal;
+    }
+}
+
+void enableGpioInterrput(port_e portNum, pin_num_e pinNum)
+{
+    uint8_t pinMask;
+    pinMask = 1 << pinNum;
+
+    if (portNum == PORT_1)
+    {
+        P1IE |= pinMask;                       //interrupt enabled
+        P1IES |= pinMask;                      //Hi/lo edge
+        P1IFG &= ~pinMask;                     //IFG cleared
+    }
+    else
+    {
+        P2IE |= pinMask;                       //interrupt enabled
+        P2IES |= pinMask;                      //Hi/lo edge
+        P2IFG &= ~pinMask;                     //IFG cleared
+    }
+}

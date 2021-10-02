@@ -29,14 +29,14 @@ void timerInit(port_e portNum, pin_num_e pinNum, uint8_t dutyCycle, float freque
         //Set direction
         P1DIR |= 1 << pinNum;
         //Select alternate function for timer
-        P1SEL |= BIT6 ;
+        P1SEL |= 1 << pinNum ;
     }
     else
     {
         //Set direction
         P2DIR |= 1 << pinNum;
         //Select alternate function for timer
-        P2SEL |= BIT6;
+        P2SEL |= 1 << pinNum;
     }
 
     //Using ACLK as clock source for timer
@@ -55,8 +55,8 @@ void timerInit(port_e portNum, pin_num_e pinNum, uint8_t dutyCycle, float freque
     dutyCycleTicks = (uint16_t)(numTicks * (dutyCycle / 100.0));
     TA0CCR1 = dutyCycleTicks;
 
-    //Setting Reset/Set mode.
-    TA0CCTL1 = OUTMOD_7;
+    //Setting Reset/Set mode
+    TA0CCTL1 = OUTMOD_7 + CCIE;
 }
 
 
@@ -85,4 +85,24 @@ void timerStop()
 {
     //Setting the mode control 0 - timer stop
     TA0CTL &= ~(0x0030);
+}
+
+
+/**************************
+ * @brief       This function enables interrupt for timer
+ *
+ * @param [in]  bool   Select either Timer0 or Timer1
+ *
+ * @return      NULL
+ **************************/
+void enableTimerInterrupt(timerSel_e timerSelect)
+{
+    if(timerSelect == TIMER_0)
+    {
+        TA0CCTL1 = CCIE;
+    }
+    else
+    {
+        TA1CCTL1 == CCIE;
+    }
 }
