@@ -38,12 +38,12 @@ int main(void)
 
     sevenSegPin_Config_t display2;
 
-    display2.a = BIT6;
-    display2.b = BIT5;
-    display2.c = BIT4;
-    display2.d = BIT3;
-    display2.e = BIT2;
-    display2.f = BIT1;
+    display2.a = BIT7;
+    display2.b = BIT6;
+    display2.c = BIT5;
+    display2.d = BIT4;
+    display2.e = BIT3;
+    display2.f = BIT2;
     display2.g = BIT0;
 
     // Initialize 7 segment displays
@@ -51,11 +51,11 @@ int main(void)
     sevenSegDisplay_Init(PORT_2, &display2);
 
     //Initialize timer
-    timerInit(PORT_1, PIN_6, 100, 10);
-    enableTimerInterrupt(TIMER_0);    //Enabled interrupt for timer 0
+    timerInit(PORT_2, PIN_1, 100, 10);
+    enableTimerInterrupt(TIMER_1);          //Enabled interrupt for timer 1
 
-    gpioInit(PORT_1, PIN_3, INPUT);    //Using P2.3 for switch
-    enableGpioInterrput(PORT_1, PIN_3); //Enable interrupt for switch
+    gpioInit(PORT_1, PIN_3, INPUT);         //Using P1.3 for switch
+    enableGpioInterrput(PORT_1, PIN_3);     //Enable interrupt for switch
 
     __enable_interrupt();
 
@@ -81,7 +81,7 @@ int main(void)
 
         if(timerCntVal > 0)
         {
-            result = timerCntVal/10;
+            result = (float)( timerCntVal/10.0 );
             displaySec = (uint8_t)result;
             displayOneTenthSec = (uint8_t)( (result - displaySec) * 10 );
         }
@@ -97,8 +97,8 @@ int main(void)
     }
 }
 
-// Timer A0 interrupt service routine
-#pragma vector=TIMER0_A0_VECTOR
+// Timer A1 interrupt service routine
+#pragma vector=TIMER1_A1_VECTOR
 __interrupt void Timer_A (void)
 {
     if(timerCntVal == 99)
