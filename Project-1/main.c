@@ -18,7 +18,7 @@ int main(void)
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
     bool switchStatus;
 
-	timerInit(PORT_1, PIN_6, 50, 1);   //Using P1.6 for LED
+	timerInit(PORT_2, PIN_1, 50, 1);   //Using P2.1 for LED
 	gpioInit(PORT_2, PIN_3, INPUT);    //Using P2.3 for switch
 
 	while(1)
