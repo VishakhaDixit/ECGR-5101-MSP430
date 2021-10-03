@@ -20,9 +20,9 @@ uint8_t switchPressCnt = 0;
 
 int main(void)
 {
-    float result;
-    uint8_t displaySec;
-    uint8_t displayOneTenthSec;
+    float result = 0.0;
+    uint8_t displaySec = 0;
+    uint8_t displayOneTenthSec = 0;
 
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
@@ -49,6 +49,10 @@ int main(void)
     // Initialize 7 segment displays
     sevenSegDisplay_Init(PORT_1, &display1);
     sevenSegDisplay_Init(PORT_2, &display2);
+
+    //Display initial value
+    sevenSegDisplay_Set(PORT_1, &display1, displaySec);
+    sevenSegDisplay_Set(PORT_2, &display2, displayOneTenthSec);
 
     //Initialize timer
     timerInit(PORT_2, PIN_1, 100, 10);
@@ -101,6 +105,8 @@ int main(void)
 #pragma vector=TIMER1_A1_VECTOR
 __interrupt void Timer_A (void)
 {
+    __disable_interrupt();
+
     if(timerCntVal == 99)
     {
         timerCntVal = 0;
@@ -111,11 +117,16 @@ __interrupt void Timer_A (void)
     }
 
     timerStart();
+    TA1CCTL1 &= ~(CCIFG);
+
+    __enable_interrupt();
 }
 // Port 1 interrupt service routine
 #pragma vector=PORT1_VECTOR
 __interrupt void Port_1(void)
 {
+    __disable_interrupt();
+
     if(P1IFG && BIT3)
     {
         if(switchPressCnt == 3)
@@ -127,4 +138,8 @@ __interrupt void Port_1(void)
             switchPressCnt++;
         }
     }
+
+    P1IFG &= ~(BIT3);
+
+    __enable_interrupt();
 }

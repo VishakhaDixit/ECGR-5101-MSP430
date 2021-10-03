@@ -70,7 +70,7 @@ void timerInit(port_e portNum, pin_num_e pinNum, uint8_t dutyCycle, float freque
 void timerStart()
 {
     //Setting the mode control 1 - counts upto CCR0
-    TA0CTL |= MC_1;
+    TA1CTL |= MC_1;
 }
 
 
@@ -84,7 +84,7 @@ void timerStart()
 void timerStop()
 {
     //Setting the mode control 0 - timer stop
-    TA0CTL &= ~(0x0030);
+    TA1CTL &= ~(0x0030);
 }
 
 
