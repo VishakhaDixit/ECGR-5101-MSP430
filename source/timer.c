@@ -103,6 +103,6 @@ void enableTimerInterrupt(timerSel_e timerSelect)
     }
     else
     {
-        TA1CCTL1 == CCIE;
+        TA1CCTL1 = CCIE;
     }
 }

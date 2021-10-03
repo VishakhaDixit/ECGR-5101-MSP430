@@ -15,8 +15,8 @@
 #include <include/gpio.h>
 #include <include/7segDisplay.h>
 
-uint8_t timerCntVal = 0;
-uint8_t switchPressCnt = 0;
+volatile uint8_t timerCntVal = 0;
+volatile uint8_t switchPressCnt = 2;
 
 int main(void)
 {
@@ -66,13 +66,13 @@ int main(void)
     while(1)
     {
         //Start timer on first button press
-        if(switchPressCnt == 1)
+        if(switchPressCnt == 0)
         {
             timerStart();
         }
 
         //Stop timer on second button press
-        else if(switchPressCnt == 2)
+        else if(switchPressCnt == 1)
         {
             timerStop();
         }
@@ -129,7 +129,7 @@ __interrupt void Port_1(void)
 
     if(P1IFG && BIT3)
     {
-        if(switchPressCnt == 3)
+        if(switchPressCnt == 2)
         {
             switchPressCnt = 0;
         }
@@ -140,6 +140,8 @@ __interrupt void Port_1(void)
     }
 
     P1IFG &= ~(BIT3);
+
+    __delay_cycles(1000);   //To compensate for button bounce
 
     __enable_interrupt();
 }
