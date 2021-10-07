@@ -14,16 +14,15 @@
 #include <include/timer.h>
 #include <include/gpio.h>
 #include <include/7segDisplay.h>
+#include <stdbool.h>
 
-volatile uint8_t timerCntVal = 0;
-volatile uint8_t switchPressCnt = 2;
+static volatile uint8_t oneTenthSec = 0;
+static volatile uint8_t sec = 0;
+static volatile uint8_t switchPressCnt = 2;
+static volatile bool switchPressed = false;
 
 int main(void)
 {
-    float result = 0.0;
-    uint8_t displaySec = 0;
-    uint8_t displayOneTenthSec = 0;
-
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
     sevenSegPin_Config_t display1;
@@ -51,8 +50,8 @@ int main(void)
     sevenSegDisplay_Init(PORT_2, &display2);
 
     //Display initial value
-    sevenSegDisplay_Set(PORT_1, &display1, displaySec);
-    sevenSegDisplay_Set(PORT_2, &display2, displayOneTenthSec);
+    sevenSegDisplay_Set(PORT_1, &display1, sec);
+    sevenSegDisplay_Set(PORT_2, &display2, oneTenthSec);
 
     //Initialize timer
     timerInit(PORT_2, PIN_1, 100, 10);
@@ -65,39 +64,31 @@ int main(void)
 
     while(1)
     {
+        //Display result on 7 segment displays
+        sevenSegDisplay_Set(PORT_2, &display2, oneTenthSec);
+        sevenSegDisplay_Set(PORT_1, &display1, sec);
+
         //Start timer on first button press
-        if(switchPressCnt == 0)
+        if(switchPressCnt == 0 && switchPressed == true)
         {
             timerStart();
+            switchPressed = false;
         }
 
         //Stop timer on second button press
-        else if(switchPressCnt == 1)
+        else if(switchPressCnt == 1 && switchPressed == true)
         {
             timerStop();
+            switchPressed = false;
         }
 
         //Display 0.0 on third button press
-        else
+        else if(switchPressCnt == 2 && switchPressed == true)
         {
-            timerCntVal = 0;
+            sec = 0;
+            oneTenthSec = 0;
+            switchPressed = false;
         }
-
-        if(timerCntVal > 0)
-        {
-            result = (float)( timerCntVal/10.0 );
-            displaySec = (uint8_t)result;
-            displayOneTenthSec = (uint8_t)( (result - displaySec) * 10 );
-        }
-        else
-        {
-            displaySec = 0;
-            displayOneTenthSec = 0;
-        }
-
-        //Display result on 7 segment displays
-        sevenSegDisplay_Set(PORT_1, &display1, displaySec);
-        sevenSegDisplay_Set(PORT_2, &display2, displayOneTenthSec);
     }
 }
 
@@ -107,20 +98,26 @@ __interrupt void Timer_A (void)
 {
     __disable_interrupt();
 
-    if(timerCntVal == 99)
+    if(oneTenthSec == 9 && sec == 9)
     {
-        timerCntVal = 0;
+        sec = 0;
+        oneTenthSec = 0;    //7-segment LEDs value correctly roll over from 9.9 to 0.0 while running longer than 10 seconds.
+    }
+    else if(oneTenthSec == 9)
+    {
+        sec++;
+        oneTenthSec = 0;
     }
     else
     {
-        timerCntVal++;
+        oneTenthSec++;
     }
 
-    timerStart();
     TA1CCTL1 &= ~(CCIFG);
 
     __enable_interrupt();
 }
+
 // Port 1 interrupt service routine
 #pragma vector=PORT1_VECTOR
 __interrupt void Port_1(void)
@@ -137,6 +134,7 @@ __interrupt void Port_1(void)
         {
             switchPressCnt++;
         }
+        switchPressed = true;
     }
 
     P1IFG &= ~(BIT3);

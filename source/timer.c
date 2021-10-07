@@ -39,17 +39,11 @@ void timerInit(port_e portNum, pin_num_e pinNum, uint8_t dutyCycle, float freque
         P2SEL |= 1 << pinNum;
     }
 
-    //Using ACLK as clock source for timer
-    TA1CTL = TASSEL_1;
-
-    //Selecting low frequency mode
-    BCSCTL1 |= LFXT1S0;
-
-    //Using Internal very low frequency osc which typically provides a freq of 12 KHz
-    BCSCTL3 |= LFXT1S_2;
+    //Using SMCLK as clock source for timer
+    TA1CTL = TASSEL_2 + ID_3;
 
     //Set the period in the Timer A0 Capture/Compare 0 register.
-    numTicks = (uint16_t)(12000 / frequency);
+    numTicks = (uint16_t)(125000 / frequency);
     TA1CCR0 = numTicks;
 
     dutyCycleTicks = (uint16_t)(numTicks * (dutyCycle / 100.0));

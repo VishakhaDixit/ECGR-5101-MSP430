@@ -59,7 +59,8 @@ void gpioInit(port_e portNum, pin_num_e pinNum, dir_e direction)
         //Select alternate function for using pins as GPIO
         if((pinNum == PIN_6) || (pinNum == PIN_7))
         {
-            P2SEL = 1 << pinNum;
+            P2SEL &= ~(1 << pinNum);
+            P2SEL2 &= ~(1 << pinNum);
         }
 
         //Setting initial value to 1
