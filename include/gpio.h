@@ -23,6 +23,8 @@ typedef enum direction
 
 void gpioInit(port_e portNum, pin_num_e pinNum, dir_e direction);
 
+void gpioInitPort(port_e portNum, dir_e direction);
+
 bool gpioGet(port_e portNum, pin_num_e pinNum);
 
 void gpioSet(port_e portNum, pin_num_e pinNum, bool val);

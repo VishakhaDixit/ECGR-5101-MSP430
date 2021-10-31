@@ -70,6 +70,46 @@ void gpioInit(port_e portNum, pin_num_e pinNum, dir_e direction)
 
 
 /**************************
+ * @brief       This function initializes the gpio port on the direction provided.
+ *
+ * @param [in]  portNum, direction
+ *
+ * @return      NULL
+ **************************/
+void gpioInitPort(port_e portNum, dir_e direction)
+{
+    //Set Input/Output direction for given port
+    if( (portNum == PORT_1) && (direction == INPUT) )
+    {
+        P1DIR &= ~(0xFF);
+    }
+    else if( (portNum == PORT_1) && (direction == OUTPUT) )
+    {
+        P1DIR |= 0xFF;
+    }
+    else if(portNum == PORT_2)
+    {
+        if(direction == INPUT)
+        {
+            P2DIR &= ~(0xFF);
+        }
+        else
+        {
+            P2DIR |= 0xFF;
+        }
+
+    //Select alternate function for using pins 6, 7 as GPIO
+    P2SEL &= ~(0xC0);
+    P2SEL2 &= ~(0xC0);
+    }
+
+    //Setting initial value to 1
+    P1OUT |= 0xFF;
+    P2OUT |= 0xFF;
+}
+
+
+/**************************
  * @brief       This function is used to get the switch status
  *
  * @param [in]  portNum, pinNum

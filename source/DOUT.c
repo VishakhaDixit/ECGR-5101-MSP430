@@ -35,7 +35,7 @@ void pinSetOP(unsigned int port, int pin) {
 }
 
 void gpioSetOP(unsigned int port, int pin) {
-    int portAddress = GPIO_PORT_ADD_TABLE[port];
+//    int portAddress = GPIO_PORT_ADD_TABLE[port];
     pinSetOP(port, pin);
     pinClearSEL(port, pin);
 }
