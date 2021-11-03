@@ -81,7 +81,7 @@ void gpioInitPort(port_e portNum, dir_e direction)
     //Set Input/Output direction for given port
     if( (portNum == PORT_1) && (direction == INPUT) )
     {
-        P1DIR &= ~(0xFF);
+        P1DIR &= ~(0x0F);
     }
     else if( (portNum == PORT_1) && (direction == OUTPUT) )
     {
@@ -98,14 +98,14 @@ void gpioInitPort(port_e portNum, dir_e direction)
             P2DIR |= 0xFF;
         }
 
-    //Select alternate function for using pins 6, 7 as GPIO
-    P2SEL &= ~(0xC0);
-    P2SEL2 &= ~(0xC0);
+        //Select alternate function for using pins 6, 7 as GPIO
+        P2SEL &= ~(0xC0);
+        P2SEL2 &= ~(0xC0);
     }
 
     //Setting initial value to 1
-    P1OUT |= 0xFF;
-    P2OUT |= 0xFF;
+    P1OUT |= 0x00;
+    P2OUT |= 0x00;
 }
 
 
